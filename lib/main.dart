@@ -19,6 +19,6 @@ void main() {
   //     overlays: [SystemUiOverlay.bottom]);
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: ResetScreen(),
+    home: HomeScreen(),
   ));
 }

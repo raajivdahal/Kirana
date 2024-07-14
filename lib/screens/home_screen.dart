@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kirana/screens/mybills_screen.dart';
+import 'package:kirana/screens/uploadbill_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           color: Colors.white,
           child: ListView(
             padding: EdgeInsets.all(0),
-            children: const [
+            children: [
               UserAccountsDrawerHeader(
                 accountName: Text(
                   "John Doe",
@@ -41,8 +43,13 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UploadbillScreen(),
+                  ));
+                },
                 leading: Icon(Icons.note),
-                title: Text(
+                title: const Text(
                   "Upload Bill",
                   style: TextStyle(
                     fontSize: 20,
@@ -50,6 +57,11 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MybillsScreen(),
+                  ));
+                },
                 leading: Icon(Icons.safety_check),
                 title: Text(
                   "My Bills",
@@ -78,7 +90,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 25),
         child: Center(
           child: Column(
             children: [
@@ -129,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 // child: Image.asset("/assets/images/bill.png"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Container(
