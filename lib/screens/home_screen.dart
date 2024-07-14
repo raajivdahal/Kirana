@@ -34,8 +34,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.home),
-                title: Text(
+                onTap: () {},
+                leading: const Icon(Icons.home),
+                title: const Text(
                   "Dashboard",
                   style: TextStyle(
                     fontSize: 20,
@@ -62,8 +63,8 @@ class HomeScreen extends StatelessWidget {
                     builder: (context) => MybillsScreen(),
                   ));
                 },
-                leading: Icon(Icons.safety_check),
-                title: Text(
+                leading: const Icon(Icons.safety_check),
+                title: const Text(
                   "My Bills",
                   style: TextStyle(
                     fontSize: 20,
@@ -180,7 +181,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 25,
               ),
               Container(
                 padding:
