@@ -1,5 +1,5 @@
 # kirana
-## Getting Started
+
 
 ## ScreenShots
 

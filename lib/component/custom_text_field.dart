@@ -10,6 +10,8 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
       child: TextField(
         decoration: InputDecoration(
+          // filled: true,
+          // fillColor: Colors.grey[200],
           hintText: inputHint,
           border: const OutlineInputBorder(),
         ),

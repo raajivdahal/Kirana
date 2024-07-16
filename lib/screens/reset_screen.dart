@@ -14,17 +14,20 @@ class ResetScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Reset Password.",
-                style: TextStyle(
-                  fontSize: 26,
-                )),
+            const Text(
+              "Reset Password.",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 50,
             ),
             const CustomTextField(inputHint: "Email"),
             const CustomTextField(inputHint: "Password"),
             const CustomTextField(inputHint: "Confirm Password"),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
