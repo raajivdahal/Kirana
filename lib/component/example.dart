@@ -22,7 +22,7 @@ class Example extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text("hello"),
+                child: const Text("hello"),
               )),
           Positioned(
             top: 250,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirana/util/randomNumber.dart';
 
 class MybillsScreen extends StatelessWidget {
   const MybillsScreen({super.key});
@@ -8,7 +9,7 @@ class MybillsScreen extends StatelessWidget {
     DateTime startDate, endDate;
 
     return Scaffold(
-      // backgroundColor: Colors.green,
+      // backgroundColor: Colors.redAccent,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -18,13 +19,13 @@ class MybillsScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.black,
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
-              Row(
+              const Row(
                 children: [
                   Text(
-                    "Bills",
+                    "My Bills",
                     style: TextStyle(
                       fontSize: 32,
                       color: Colors.yellowAccent,
@@ -32,32 +33,32 @@ class MybillsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Row(
                 children: [
                   Container(
-                    child: Text(
+                    child: const Text(
                       "Day",
                       style: TextStyle(
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     "Week",
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
-                  Text(
+                  const Text(
                     "Month",
                     style: TextStyle(
                       color: Colors.white,
@@ -65,7 +66,7 @@ class MybillsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -100,33 +101,63 @@ class MybillsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                 ),
-                child: Text(
+                child: const Text(
                   "Filter",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               )
             ]),
           ),
-          // ListTile(
-          //   tileColor: Colors.red,
-          //   title: Text("hello world"),
-          // ),
+          ListTile(
+            tileColor: Colors.grey[300],
+            // tileColor: Colors.grey,
+            leading: Text(
+              "Bill Num",
+              style: TextStyle(fontSize: 16),
+            ),
+            title: Padding(
+              padding: EdgeInsets.only(left: 60.0),
+              child: Text(
+                "Bill Type",
+                style: TextStyle(),
+              ),
+            ),
+            trailing: Text(
+              "Download",
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, index) {
+                List<String> s = ["Sales", "Purchase"];
+
+                String Rtype = s[randomNum()];
+
                 return ListTile(
                   // tileColor: Colors.grey,
-                  leading: Text("Kathmandu"),
-                  title: Text("hello"),
+                  leading: Text(
+                    "Bill Num",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  title: Padding(
+                    padding: EdgeInsets.only(left: 60.0),
+                    child: Text(
+                      Rtype,
+                      style: TextStyle(),
+                    ),
+                  ),
+                  trailing: Icon(Icons.download),
                 );
               },
               separatorBuilder: (context, index) {

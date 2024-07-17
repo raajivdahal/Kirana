@@ -5,11 +5,11 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
+    return const Card(
+      elevation: 2.2,
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         child: Column(
           children: [
             Row(
@@ -37,15 +37,15 @@ class CustomCard extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Text("Bill Num:"),
-                SizedBox(
-                  width: 15,
-                ),
-                Text("04543"),
-              ],
-            )
+            // Row(
+            //   children: [
+            //     Text("Bill Num:"),
+            //     SizedBox(
+            //       width: 15,
+            //     ),
+            //     Text("04543"),
+            //   ],
+            // )
           ],
         ),
       ),

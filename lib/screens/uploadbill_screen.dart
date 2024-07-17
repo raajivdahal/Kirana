@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-enum Category { sale, purchase }
+import 'package:kirana/component/dashed_container.dart';
+import 'package:kirana/screens/home_screen.dart';
 
 class UploadbillScreen extends StatefulWidget {
   const UploadbillScreen({super.key});
@@ -9,199 +9,80 @@ class UploadbillScreen extends StatefulWidget {
   State<UploadbillScreen> createState() => _UploadbillScreenState();
 }
 
-List<String> options = ["Sale", "Purchase"];
-
 class _UploadbillScreenState extends State<UploadbillScreen> {
-  // final Category _category = Category.purchase;
-  DateTime? d;
-  String currentOption = options[0];
-
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 13, 116, 66),
-        centerTitle: true,
-        title: Text(
-          "Upload Bill",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 26,
-          ),
-        ),
+        backgroundColor: Colors.blueGrey,
+        leading: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => DashBoard()))),
+        actions: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.green, borderRadius: BorderRadius.circular(5)),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            margin: EdgeInsets.only(right: 25),
+            child: Text("Save"),
+          )
+        ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: options[0],
-                        groupValue: currentOption,
-                        onChanged: (value) {
-                          setState(() {
-                            currentOption = value.toString();
-                          });
-                        },
-                      ),
-                      const Text("Sale"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        value: options[1],
-                        groupValue: currentOption,
-                        onChanged: (value) {
-                          setState(() {
-                            currentOption = value.toString();
-                          });
-                        },
-                      ),
-                      const Text("Purchase"),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  final DateTime? date = await showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2005),
-                    initialEntryMode: DatePickerEntryMode.input,
-                  );
-                  if (date != null) {
-                    d = date;
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.black,
-                    ),
-                    height: 55,
-                    width: double.infinity,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Date",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Icon(
-                          Icons.date_range,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  minLines: 1,
-                  maxLines: 2,
-                  decoration: InputDecoration(
-                    hintText: "Remarks",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Customer Name",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              GestureDetector(
-                onTap: () async {},
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.black,
-                    ),
-                    height: 55,
-                    width: double.infinity,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Photo",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.photo,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                onTap: () async {},
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.blue,
-                    ),
-                    height: 55,
-                    width: double.infinity,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Upload",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.upload,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          TextField(
+            style: TextStyle(fontSize: 22),
+            decoration: InputDecoration(
+                hintText: "Bill Name", contentPadding: EdgeInsets.all(20)),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: DashedBorderContainer(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Icon(Icons.photo), Text("Add a receipt")],
+                ),
+              ),
+            ),
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.date_range,
+                      size: 28,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Jul 17, 2024",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(),
+          // TextField(
+          //   maxLines: 4,
+          //   decoration: InputDecoration(
+          //     prefixIcon: Icon(Icons.create),
+          //   ),
+          // )
         ],
       ),
     );

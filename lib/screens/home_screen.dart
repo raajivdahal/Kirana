@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:kirana/component/custom_drawer.dart';
 import 'package:kirana/component/latest_card.dart';
+import 'package:kirana/screens/mybills_screen.dart';
+import 'package:kirana/screens/uploadbill_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -9,28 +13,34 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Colors.white,
+      drawer: CustomDrawer(),
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 30),
-          child: Icon(
+        leading: IconButton(
+          padding: EdgeInsets.only(left: 30),
+          // color: Colors.red,
+          icon: const Icon(
             Icons.dashboard,
             size: 35,
           ),
+          onPressed: () => scaffoldKey.currentState?.openDrawer(),
         ),
         backgroundColor: Colors.white,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 35),
             child: Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 2),
                   borderRadius: BorderRadius.circular(10)),
-              child: Icon(Icons.settings),
+              child: const Icon(Icons.settings),
             ),
           ),
         ],
@@ -39,7 +49,7 @@ class _DashBoardState extends State<DashBoard> {
         padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
         child: Column(
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
@@ -64,60 +74,77 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ],
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.deepPurple[300],
                   borderRadius: BorderRadius.circular(15)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.upload_file,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("Upload Bill"),
-                    ],
+                  GestureDetector(
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.upload_file,
+                              size: 35,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Upload Bill"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => UploadbillScreen())),
                   ),
                   VerticalDivider(
                     color: Colors.grey,
                     thickness: 2,
                   ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.data_array,
-                        size: 35,
+                  GestureDetector(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.data_array,
+                          size: 35,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "My Bills",
+                        ),
+                      ],
+                    ),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MybillsScreen(),
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("My Bills"),
-                    ],
+                    ),
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Latest Activity",
+                  "Latest activity",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Row(
@@ -131,15 +158,13 @@ class _DashBoardState extends State<DashBoard> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-                children: [
-                  CustomCard(),
-                  CustomCard(),
+                children: const [
                   CustomCard(),
                   CustomCard(),
                   CustomCard(),

@@ -9,12 +9,12 @@ class SignInTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue, width: 2.0),
         ),
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         label: Text(label),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.grey,
         ),
         suffixIcon: icon,

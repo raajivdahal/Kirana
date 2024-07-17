@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kirana/component/custom_text_field.dart';
 
 class ResetScreen extends StatelessWidget {
@@ -35,7 +33,7 @@ class ResetScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 57, 151, 60),
+                  color: const Color.fromARGB(255, 57, 151, 60),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Center(
