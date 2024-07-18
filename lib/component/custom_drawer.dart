@@ -48,6 +48,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => UploadbillScreen(),
                 ));
@@ -62,6 +64,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
+                Navigator.pop(context);
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => MybillsScreen(),
                 ));

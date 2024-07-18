@@ -15,10 +15,12 @@ import 'screens/home_screen.dart';
 // import 'screens/login_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
   //     overlays: [SystemUiOverlay.bottom]);
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: SignUpScreen(),
+    home: UploadbillScreen(),
   ));
 }

@@ -114,7 +114,8 @@ class SignInScreen extends StatelessWidget {
                         child: CustomButton(
                           text: "Login",
                         ),
-                        onTap: () => Navigator.of(context).push(
+                        onTap: () => Navigator.pushReplacement(
+                          context,
                           MaterialPageRoute(
                             builder: (context) => DashBoard(),
                           ),

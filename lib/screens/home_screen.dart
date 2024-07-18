@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:kirana/component/custom_drawer.dart';
 import 'package:kirana/component/latest_card.dart';
 import 'package:kirana/screens/mybills_screen.dart';
+import 'package:kirana/screens/setting.dart';
 import 'package:kirana/screens/uploadbill_screen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -22,15 +23,25 @@ class _DashBoardState extends State<DashBoard> {
       backgroundColor: Colors.white,
       drawer: CustomDrawer(),
       appBar: AppBar(
-        leading: IconButton(
-          padding: EdgeInsets.only(left: 30),
-          // color: Colors.red,
-          icon: const Icon(
-            Icons.dashboard,
-            size: 35,
+        leading: GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: Icon(
+              Icons.dashboard,
+              size: 35,
+            ),
           ),
-          onPressed: () => scaffoldKey.currentState?.openDrawer(),
+          onTap: () => scaffoldKey.currentState?.openDrawer(),
         ),
+        // IconButton(
+        //   padding: EdgeInsets.only(left: 30),
+        //   // color: Colors.red,
+        //   icon: const Icon(
+        //     Icons.dashboard,
+        //     size: 35,
+        //   ),
+        //   onPressed: () => scaffoldKey.currentState?.openDrawer(),
+        // ),
         backgroundColor: Colors.white,
         actions: [
           Padding(
@@ -40,7 +51,12 @@ class _DashBoardState extends State<DashBoard> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 2),
                   borderRadius: BorderRadius.circular(10)),
-              child: const Icon(Icons.settings),
+              child: GestureDetector(
+                child: const Icon(Icons.settings),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SettingScreen()),
+                ),
+              ),
             ),
           ),
         ],
@@ -168,7 +184,7 @@ class _DashBoardState extends State<DashBoard> {
                   CustomCard(),
                   CustomCard(),
                   CustomCard(),
-                  CustomCard(),
+                  // CustomCard(),
                 ],
               ),
             )

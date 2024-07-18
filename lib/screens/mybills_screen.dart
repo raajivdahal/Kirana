@@ -74,11 +74,16 @@ class MybillsScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text(
-                      "Bill Type",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                    child: Row(
+                      children: [
+                        const Text(
+                          "Type",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        // Icon(Icons.check_outlined)
+                      ],
                     ),
                   ),
                   OutlinedButton(

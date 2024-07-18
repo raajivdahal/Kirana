@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kirana/component/custom_button.dart';
 import 'package:kirana/component/signin_text_field.dart';
+import 'package:kirana/screens/home_screen.dart';
 import 'package:kirana/screens/sign_in.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -123,8 +124,15 @@ class SignUpScreen extends StatelessWidget {
                           SizedBox(
                             height: 25,
                           ),
-                          CustomButton(
-                            text: "Done",
+                          GestureDetector(
+                            child: CustomButton(
+                              text: "Done",
+                            ),
+                            onTap: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DashBoard(),
+                                )),
                           ),
                           SizedBox(
                             height: 25,

@@ -27,7 +27,7 @@ class CustomCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Text("Bill Num"),
+                Text("Bill Num:"),
                 SizedBox(
                   width: 15,
                 ),
