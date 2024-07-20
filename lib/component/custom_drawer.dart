@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kirana/screens/home_screen.dart';
 import 'package:kirana/screens/mybills_screen.dart';
+import 'package:kirana/screens/sign_in.dart';
 
 import '../screens/uploadbill_screen.dart';
 
@@ -80,9 +81,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) {},
-                // ));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => SignInScreen()));
               },
               leading: const Icon(Icons.logout),
               title: const Text(

@@ -3,6 +3,10 @@ import 'package:kirana/component/custom_button.dart';
 import 'package:kirana/component/signin_text_field.dart';
 import 'package:kirana/screens/home_screen.dart';
 import 'package:kirana/screens/sign_in.dart';
+import 'package:kirana/screens/verifyotp_screen.dart';
+import 'package:kirana/util/form_validate.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -63,102 +67,165 @@ class SignUpScreen extends StatelessWidget {
                     //     ),
                     //   ],
                     // ),
-                    const SizedBox(
-                      height: 35,
-                    ),
 
                     Container(
                       decoration: const BoxDecoration(color: Colors.white),
-                      child: Column(
-                        children: [
-                          const SignInTextField(
-                            label: "Full Name",
-                            icon: Icon(Icons.person),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const SignInTextField(
-                              label: "Mobile Number", icon: Icon(Icons.phone)),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.email),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.blue, width: 2.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            // const SignInTextField(
+                            //   label: "Full Name",
+                            //   icon: Icon(Icons.person),
+                            // ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  suffixIcon: Icon(Icons.email),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  label: Text("Full Name"),
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                                border: OutlineInputBorder(),
-                                label: Text("Email ID"),
-                                labelStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                                validator: (value) =>
+                                    (value!.isEmpty || value!.length < 3)
+                                        ? "Please Enter Full Name"
+                                        : null,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                suffixIcon: Icon(Icons.password),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.blue, width: 2.0),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0),
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons.email),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  label: Text("Mobile Number"),
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                                border: OutlineInputBorder(),
-                                label: Text("Password"),
-                                labelStyle: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                                validator: (value) => validateMobile(value!),
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          GestureDetector(
-                            child: const CustomButton(
-                              text: "Done",
+                            // const SignInTextField(
+                            //     label: "Mobile Number",
+                            //     icon: Icon(Icons.phone)),
+
+                            const SizedBox(
+                              height: 15,
                             ),
-                            onTap: () => Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashBoard(),
-                                )),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Already have account?"),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              GestureDetector(
-                                child: const Text(
-                                  "Sign in",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0),
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons.email),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  label: Text("Email ID"),
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignInScreen(),
+                                validator: (value) => validateEmail(value!)
+                                    ? null
+                                    : "Enter valid email",
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              child: TextFormField(
+                                validator: (value) =>
+                                    value!.isEmpty || value.length < 3
+                                        ? "Enter the Password"
+                                        : null,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons.lock),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.blue, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  label: Text("Password"),
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
-                            ],
-                          )
-                        ],
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            GestureDetector(
+                                child: const CustomButton(
+                                  text: "Done",
+                                ),
+                                onTap: () => {
+                                      _formKey.currentState!.validate()
+                                      // Navigator.pushReplacement(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           const DashBoard(),
+                                      //     )),
+                                    }),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Already have account?"),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                GestureDetector(
+                                    child: const Text(
+                                      "Sign in",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    onTap: () => {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const OTPScreen(),
+                                            ),
+                                          ),
+                                        }),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

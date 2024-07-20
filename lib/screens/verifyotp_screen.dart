@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kirana/screens/home_screen.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -97,11 +98,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 onTap: () => {
                   // if (formKey.currentState!.validate())
                   //   {
-                  //     Navigator.push(context,
-                  //         MaterialPageRoute(builder: (BuildContext context) {
-                  //       return HomeScreen();
-                  //     }))
                   //   }
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return DashBoard();
+                  }))
                 },
                 child: Container(
                   color: focusedBorderColor,
