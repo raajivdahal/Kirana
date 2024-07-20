@@ -1,0 +1,125 @@
+{
+    "bill_receipt": [
+        {
+            "fullName": "Customer1",
+            "email": "customer1@example.com",
+            "billType": "purchase",
+            "billNumber": 3824
+        },
+        {
+            "fullName": "Customer2",
+            "email": "customer2@domain.com",
+            "billType": "purchase",
+            "billNumber": 8951
+        },
+        {
+            "fullName": "Customer3",
+            "email": "customer3@example.com",
+            "billType": "purchase",
+            "billNumber": 1597
+        },
+        {
+            "fullName": "Customer4",
+            "email": "customer4@mail.com",
+            "billType": "sale",
+            "billNumber": 3088
+        },
+        {
+            "fullName": "Customer5",
+            "email": "customer5@example.com",
+            "billType": "sale",
+            "billNumber": 4791
+        },
+        {
+            "fullName": "Customer6",
+            "email": "customer6@mail.com",
+            "billType": "purchase",
+            "billNumber": 3893
+        },
+        {
+            "fullName": "Customer7",
+            "email": "customer7@example.com",
+            "billType": "purchase",
+            "billNumber": 4152
+        },
+        {
+            "fullName": "Customer8",
+            "email": "customer8@mail.com",
+            "billType": "sale",
+            "billNumber": 3117
+        },
+        {
+            "fullName": "Customer9",
+            "email": "customer9@domain.com",
+            "billType": "purchase",
+            "billNumber": 6979
+        },
+        {
+            "fullName": "Customer10",
+            "email": "customer10@domain.com",
+            "billType": "purchase",
+            "billNumber": 5647
+        },
+        {
+            "fullName": "Customer11",
+            "email": "customer11@example.com",
+            "billType": "purchase",
+            "billNumber": 4428
+        },
+        {
+            "fullName": "Customer12",
+            "email": "customer12@domain.com",
+            "billType": "sale",
+            "billNumber": 5267
+        },
+        {
+            "fullName": "Customer13",
+            "email": "customer13@domain.com",
+            "billType": "sale",
+            "billNumber": 6506
+        },
+        {
+            "fullName": "Customer14",
+            "email": "customer14@domain.com",
+            "billType": "sale",
+            "billNumber": 5759
+        },
+        {
+            "fullName": "Customer15",
+            "email": "customer15@mail.com",
+            "billType": "purchase",
+            "billNumber": 6588
+        },
+        {
+            "fullName": "Customer16",
+            "email": "customer16@mail.com",
+            "billType": "purchase",
+            "billNumber": 8054
+        },
+        {
+            "fullName": "Customer17",
+            "email": "customer17@mail.com",
+            "billType": "purchase",
+            "billNumber": 7991
+        },
+        {
+            "fullName": "Customer18",
+            "email": "customer18@example.com",
+            "billType": "sale",
+            "billNumber": 2808
+        },
+        {
+            "fullName": "Customer19",
+            "email": "customer19@domain.com",
+            "billType": "purchase",
+            "billNumber": 9310
+        },
+        {
+            "fullName": "Customer20",
+            "email": "customer20@mail.com",
+            "billType": "purchase",
+            "billNumber": 9273
+        }
+    ]
+}
+    

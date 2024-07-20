@@ -6,7 +6,7 @@ import 'package:kirana/screens/sign_in.dart';
 import 'package:kirana/screens/verifyotp_screen.dart';
 import 'package:kirana/util/form_validate.dart';
 
-final _formKey = GlobalKey<FormState>();
+final _signUpFormKey = GlobalKey<FormState>();
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -71,7 +71,7 @@ class SignUpScreen extends StatelessWidget {
                     Container(
                       decoration: const BoxDecoration(color: Colors.white),
                       child: Form(
-                        key: _formKey,
+                        key: _signUpFormKey,
                         child: Column(
                           children: [
                             // const SignInTextField(
@@ -94,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
                                   ),
                                 ),
                                 validator: (value) =>
-                                    (value!.isEmpty || value!.length < 3)
+                                    (value!.isEmpty || value.length < 3)
                                         ? "Please Enter Full Name"
                                         : null,
                                 autovalidateMode:
@@ -108,6 +108,7 @@ class SignUpScreen extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 0),
                               child: TextFormField(
+                                keyboardType: TextInputType.phone,
                                 decoration: const InputDecoration(
                                   suffixIcon: Icon(Icons.email),
                                   focusedBorder: OutlineInputBorder(
@@ -189,13 +190,16 @@ class SignUpScreen extends StatelessWidget {
                                   text: "Done",
                                 ),
                                 onTap: () => {
-                                      _formKey.currentState!.validate()
-                                      // Navigator.pushReplacement(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           const DashBoard(),
-                                      //     )),
+                                      if (_signUpFormKey.currentState!
+                                          .validate())
+                                        {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const DashBoard(),
+                                              )),
+                                        }
                                     }),
                             const SizedBox(
                               height: 25,

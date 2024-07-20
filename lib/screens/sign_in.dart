@@ -7,7 +7,7 @@ import 'package:kirana/screens/signup_screen.dart';
 import 'package:kirana/screens/verifyotp_screen.dart';
 import 'package:kirana/util/form_validate.dart';
 
-final _formKey = GlobalKey<FormState>();
+final _signInformKey = GlobalKey<FormState>();
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -31,7 +31,7 @@ class SignInScreen extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15)),
                   child: Form(
-                    key: _formKey,
+                    key: _signInformKey,
                     child: Column(
                       children: [
                         // Row(
@@ -134,13 +134,16 @@ class SignInScreen extends StatelessWidget {
                               text: "Login",
                             ),
                             onTap: () => {
-                                  _formKey.currentState!.validate()
-                                  // Navigator.pushReplacement(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => const OTPScreen(),
-                                  //   ),
-                                  // ),
+                                  if (_signInformKey.currentState!.validate())
+                                    {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const OTPScreen(),
+                                        ),
+                                      ),
+                                    }
                                 }),
                         const SizedBox(
                           height: 60,

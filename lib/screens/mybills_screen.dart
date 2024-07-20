@@ -1,13 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kirana/util/randomNumber.dart';
 
-class MybillsScreen extends StatelessWidget {
+class MybillsScreen extends StatefulWidget {
   const MybillsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    DateTime startDate, endDate;
+  State<MybillsScreen> createState() => _MybillsScreenState();
+}
 
+class _MybillsScreenState extends State<MybillsScreen> {
+  List items = [];
+
+  @override
+  void initState() {
+    // readJson();
+    super.initState();
+  }
+
+  Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.redAccent,
       resizeToAvoidBottomInset: false,
@@ -109,16 +122,21 @@ class MybillsScreen extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: const Text(
-                  "Filter",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              GestureDetector(
+                onTap: () {
+                  readJson();
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: const Text(
+                    "Filter",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
             ]),
@@ -144,25 +162,33 @@ class MybillsScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
+              padding: EdgeInsets.all(0),
               itemBuilder: (context, index) {
-                List<String> s = ["Sales", "Purchase"];
+                final item = items[index];
+                String billNum = item["billNumber"].toString();
+                String billType = item["billType"];
+                print(billNum);
+                // List<String> s = ["Sales", "Purchase"];
 
-                String Rtype = s[randomNum()];
+                // String Rtype = s[randomNum()];
 
                 return ListTile(
                   // tileColor: Colors.grey,
-                  leading: const Text(
-                    "Bill Num",
+                  leading: Text(
+                    billNum,
                     style: TextStyle(fontSize: 16),
                   ),
                   title: Padding(
-                    padding: const EdgeInsets.only(left: 60.0),
+                    padding: const EdgeInsets.only(left: 80.0),
                     child: Text(
-                      Rtype,
+                      billType,
                       style: const TextStyle(),
                     ),
                   ),
-                  trailing: const Icon(Icons.download),
+                  trailing: const Padding(
+                    padding: EdgeInsets.only(right: 30.0),
+                    child: Icon(Icons.download),
+                  ),
                 );
               },
               separatorBuilder: (context, index) {
@@ -171,11 +197,20 @@ class MybillsScreen extends StatelessWidget {
                   color: Colors.grey, // Custom style
                 );
               },
-              itemCount: 50,
+              itemCount: items.length,
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/bills.json');
+    final data = await json.decode(response);
+    setState(() {
+      items = data["bill_receipt"];
+      // print(items);
+    });
   }
 }
