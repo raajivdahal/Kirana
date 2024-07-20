@@ -2,123 +2,143 @@
     "bill_receipt": [
         {
             "fullName": "Customer1",
-            "email": "customer1@example.com",
+            "email": "customer1@mail.com",
             "billType": "purchase",
-            "billNumber": 3824
+            "billDate": "2023-08-01",
+            "billNumber": 2112
         },
         {
             "fullName": "Customer2",
-            "email": "customer2@domain.com",
-            "billType": "purchase",
-            "billNumber": 8951
+            "email": "customer2@example.com",
+            "billType": "sale",
+            "billDate": "2024-07-09",
+            "billNumber": 6876
         },
         {
             "fullName": "Customer3",
-            "email": "customer3@example.com",
-            "billType": "purchase",
-            "billNumber": 1597
+            "email": "customer3@domain.com",
+            "billType": "sale",
+            "billDate": "2024-04-01",
+            "billNumber": 2173
         },
         {
             "fullName": "Customer4",
             "email": "customer4@mail.com",
             "billType": "sale",
-            "billNumber": 3088
+            "billDate": "2023-12-28",
+            "billNumber": 3936
         },
         {
             "fullName": "Customer5",
             "email": "customer5@example.com",
             "billType": "sale",
-            "billNumber": 4791
+            "billDate": "2023-08-04",
+            "billNumber": 6347
         },
         {
             "fullName": "Customer6",
-            "email": "customer6@mail.com",
-            "billType": "purchase",
-            "billNumber": 3893
+            "email": "customer6@example.com",
+            "billType": "sale",
+            "billDate": "2023-10-03",
+            "billNumber": 9347
         },
         {
             "fullName": "Customer7",
-            "email": "customer7@example.com",
-            "billType": "purchase",
-            "billNumber": 4152
+            "email": "customer7@domain.com",
+            "billType": "sale",
+            "billDate": "2024-04-08",
+            "billNumber": 9856
         },
         {
             "fullName": "Customer8",
-            "email": "customer8@mail.com",
-            "billType": "sale",
-            "billNumber": 3117
+            "email": "customer8@domain.com",
+            "billType": "purchase",
+            "billDate": "2024-02-02",
+            "billNumber": 4409
         },
         {
             "fullName": "Customer9",
-            "email": "customer9@domain.com",
-            "billType": "purchase",
-            "billNumber": 6979
+            "email": "customer9@mail.com",
+            "billType": "sale",
+            "billDate": "2024-02-28",
+            "billNumber": 7077
         },
         {
             "fullName": "Customer10",
-            "email": "customer10@domain.com",
-            "billType": "purchase",
-            "billNumber": 5647
+            "email": "customer10@example.com",
+            "billType": "sale",
+            "billDate": "2023-11-21",
+            "billNumber": 7367
         },
         {
             "fullName": "Customer11",
-            "email": "customer11@example.com",
+            "email": "customer11@domain.com",
             "billType": "purchase",
-            "billNumber": 4428
+            "billDate": "2023-09-24",
+            "billNumber": 9639
         },
         {
             "fullName": "Customer12",
-            "email": "customer12@domain.com",
+            "email": "customer12@mail.com",
             "billType": "sale",
-            "billNumber": 5267
+            "billDate": "2024-05-07",
+            "billNumber": 4534
         },
         {
             "fullName": "Customer13",
-            "email": "customer13@domain.com",
+            "email": "customer13@example.com",
             "billType": "sale",
-            "billNumber": 6506
+            "billDate": "2024-01-20",
+            "billNumber": 5783
         },
         {
             "fullName": "Customer14",
-            "email": "customer14@domain.com",
-            "billType": "sale",
-            "billNumber": 5759
+            "email": "customer14@mail.com",
+            "billType": "purchase",
+            "billDate": "2023-12-12",
+            "billNumber": 4970
         },
         {
             "fullName": "Customer15",
-            "email": "customer15@mail.com",
-            "billType": "purchase",
-            "billNumber": 6588
+            "email": "customer15@example.com",
+            "billType": "sale",
+            "billDate": "2024-07-12",
+            "billNumber": 9191
         },
         {
             "fullName": "Customer16",
             "email": "customer16@mail.com",
-            "billType": "purchase",
-            "billNumber": 8054
+            "billType": "sale",
+            "billDate": "2024-01-05",
+            "billNumber": 1639
         },
         {
             "fullName": "Customer17",
             "email": "customer17@mail.com",
-            "billType": "purchase",
-            "billNumber": 7991
+            "billType": "sale",
+            "billDate": "2023-11-16",
+            "billNumber": 2218
         },
         {
             "fullName": "Customer18",
             "email": "customer18@example.com",
-            "billType": "sale",
-            "billNumber": 2808
+            "billType": "purchase",
+            "billDate": "2023-11-16",
+            "billNumber": 7490
         },
         {
             "fullName": "Customer19",
-            "email": "customer19@domain.com",
-            "billType": "purchase",
-            "billNumber": 9310
+            "email": "customer19@example.com",
+            "billType": "sale",
+            "billDate": "2024-06-25",
+            "billNumber": 5063
         },
         {
             "fullName": "Customer20",
-            "email": "customer20@mail.com",
+            "email": "customer20@domain.com",
             "billType": "purchase",
-            "billNumber": 9273
+            "billDate": "2024-05-17",
+            "billNumber": 9857
         }
     ]
 }

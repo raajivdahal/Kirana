@@ -65,8 +65,7 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               padding: EdgeInsets.symmetric(vertical: 15.0),
               child: DashedBorderContainer(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 50.0, vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [Icon(Icons.photo), Text("Add a receipt")],
@@ -106,73 +105,85 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.date_range,
-                      size: 28,
+                InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.date_range,
+                          size: 28,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        const Text(
+                          "Jul 17, 2024",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: const Text(
-                        "Jul 17, 2024",
-                        style: TextStyle(
-                          fontSize: 16,
+                  ),
+                  onTap: () async {
+                    final DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2018),
+                        lastDate: DateTime(2025));
+                  },
+                ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.category,
+                        size: 28,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+
+                        // dropdown below..
+                        child: DropdownButton<String>(
+                          hint: const Text("Bill Type"),
+
+                          value: selectedValue,
+                          onChanged: (newValue) {
+                            print(newValue);
+                            if (newValue != null) {
+                              setState(() {
+                                selectedValue = newValue;
+                              });
+                            }
+                          },
+                          items: items
+                              .map<DropdownMenuItem<String>>(
+                                  (String value) => DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      ))
+                              .toList(),
+
+                          // add extra sugar..
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 42,
+                          underline: const SizedBox(),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.category,
-                      size: 28,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-
-                      // dropdown below..
-                      child: DropdownButton<String>(
-                        hint: const Text("Bill Type"),
-
-                        value: selectedValue,
-                        onChanged: (newValue) {
-                          print(newValue);
-                          if (newValue != null) {
-                            setState(() {
-                              selectedValue = newValue;
-                            });
-                          }
-                        },
-                        items: items
-                            .map<DropdownMenuItem<String>>(
-                                (String value) => DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    ))
-                            .toList(),
-
-                        // add extra sugar..
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 42,
-                        underline: const SizedBox(),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             ),
@@ -205,8 +216,9 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           SizedBox(
             width: 200,
             height: 200,
-            child:
-                _selectedImage != null ? Image.file(_selectedImage!) : const Text(""),
+            child: _selectedImage != null
+                ? Image.file(_selectedImage!)
+                : const Text(""),
           )
         ],
       ),
