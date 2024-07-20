@@ -23,7 +23,7 @@ class _MybillsScreenState extends State<MybillsScreen> {
 
   @override
   void initState() {
-    // readJson();
+    readJson();
     super.initState();
   }
 
@@ -85,7 +85,7 @@ class _MybillsScreenState extends State<MybillsScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 45,
+                    width: 20,
                   ),
                   OutlinedButton(
                     onPressed: () {},
