@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kirana/component/custom_button.dart';
 import 'package:kirana/component/signin_text_field.dart';
 import 'package:kirana/screens/home_screen.dart';
@@ -72,19 +71,19 @@ class SignUpScreen extends StatelessWidget {
                       decoration: const BoxDecoration(color: Colors.white),
                       child: Column(
                         children: [
-                          SignInTextField(
+                          const SignInTextField(
                             label: "Full Name",
                             icon: Icon(Icons.person),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
-                          SignInTextField(
+                          const SignInTextField(
                               label: "Mobile Number", icon: Icon(Icons.phone)),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 0),
                             child: TextField(
                               decoration: InputDecoration(
@@ -101,10 +100,10 @@ class SignUpScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 0),
                             child: TextField(
                               decoration: InputDecoration(
@@ -121,31 +120,31 @@ class SignUpScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
                           GestureDetector(
-                            child: CustomButton(
+                            child: const CustomButton(
                               text: "Done",
                             ),
                             onTap: () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DashBoard(),
+                                  builder: (context) => const DashBoard(),
                                 )),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Already have account?"),
-                              SizedBox(
+                              const Text("Already have account?"),
+                              const SizedBox(
                                 width: 5,
                               ),
                               GestureDetector(
-                                child: Text(
+                                child: const Text(
                                   "Sign in",
                                   style: TextStyle(
                                       color: Colors.blue,
@@ -153,7 +152,7 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                                 onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => SignInScreen(),
+                                    builder: (context) => const SignInScreen(),
                                   ),
                                 ),
                               ),

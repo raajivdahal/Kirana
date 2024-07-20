@@ -74,9 +74,9 @@ class MybillsScreen extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {},
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Text(
+                        Text(
                           "Type",
                           style: TextStyle(
                             color: Colors.white,
@@ -126,18 +126,18 @@ class MybillsScreen extends StatelessWidget {
           ListTile(
             tileColor: Colors.grey[300],
             // tileColor: Colors.grey,
-            leading: Text(
+            leading: const Text(
               "Bill Num",
               style: TextStyle(fontSize: 16),
             ),
-            title: Padding(
+            title: const Padding(
               padding: EdgeInsets.only(left: 60.0),
               child: Text(
                 "Bill Type",
                 style: TextStyle(),
               ),
             ),
-            trailing: Text(
+            trailing: const Text(
               "Download",
               style: TextStyle(fontSize: 16),
             ),
@@ -151,18 +151,18 @@ class MybillsScreen extends StatelessWidget {
 
                 return ListTile(
                   // tileColor: Colors.grey,
-                  leading: Text(
+                  leading: const Text(
                     "Bill Num",
                     style: TextStyle(fontSize: 16),
                   ),
                   title: Padding(
-                    padding: EdgeInsets.only(left: 60.0),
+                    padding: const EdgeInsets.only(left: 60.0),
                     child: Text(
                       Rtype,
-                      style: TextStyle(),
+                      style: const TextStyle(),
                     ),
                   ),
-                  trailing: Icon(Icons.download),
+                  trailing: const Icon(Icons.download),
                 );
               },
               separatorBuilder: (context, index) {

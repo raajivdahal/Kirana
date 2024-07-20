@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kirana/component/custom_drawer.dart';
 import 'package:kirana/component/latest_card.dart';
 import 'package:kirana/screens/mybills_screen.dart';
@@ -21,11 +20,11 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         leading: GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30.0),
+          child: const Padding(
+            padding: EdgeInsets.only(left: 30.0),
             child: Icon(
               Icons.dashboard,
               size: 35,
@@ -54,7 +53,7 @@ class _DashBoardState extends State<DashBoard> {
               child: GestureDetector(
                 child: const Icon(Icons.settings),
                 onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SettingScreen()),
+                  MaterialPageRoute(builder: (context) => const SettingScreen()),
                 ),
               ),
             ),
@@ -106,7 +105,7 @@ class _DashBoardState extends State<DashBoard> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    child: Column(
+                    child: const Column(
                       children: [
                         Column(
                           children: [
@@ -123,14 +122,14 @@ class _DashBoardState extends State<DashBoard> {
                       ],
                     ),
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => UploadbillScreen())),
+                        builder: (context) => const UploadbillScreen())),
                   ),
-                  VerticalDivider(
+                  const VerticalDivider(
                     color: Colors.grey,
                     thickness: 2,
                   ),
                   GestureDetector(
-                    child: Column(
+                    child: const Column(
                       children: [
                         Icon(
                           Icons.data_array,
@@ -146,7 +145,7 @@ class _DashBoardState extends State<DashBoard> {
                     ),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => MybillsScreen(),
+                        builder: (context) => const MybillsScreen(),
                       ),
                     ),
                   )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kirana/component/custom_drawer.dart';
 
 import 'home_screen.dart';
 import 'mybills_screen.dart';
@@ -17,7 +16,7 @@ class TestDrawer extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(0),
             children: [
-              UserAccountsDrawerHeader(
+              const UserAccountsDrawerHeader(
                 accountName: Text(
                   "John Doe",
                   style: TextStyle(
@@ -37,7 +36,7 @@ class TestDrawer extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => DashBoard(),
+                    builder: (context) => const DashBoard(),
                   ));
                 },
                 leading: const Icon(Icons.dashboard_outlined),
@@ -51,7 +50,7 @@ class TestDrawer extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UploadbillScreen(),
+                    builder: (context) => const UploadbillScreen(),
                   ));
                 },
                 leading: const Icon(Icons.note),
@@ -65,7 +64,7 @@ class TestDrawer extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MybillsScreen(),
+                    builder: (context) => const MybillsScreen(),
                   ));
                 },
                 leading: const Icon(Icons.safety_check),

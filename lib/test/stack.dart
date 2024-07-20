@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kirana/screens/mybills_screen.dart';
 import 'package:kirana/screens/uploadbill_screen.dart';
 
@@ -16,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(0),
             children: [
-              UserAccountsDrawerHeader(
+              const UserAccountsDrawerHeader(
                 accountName: Text(
                   "John Doe",
                   style: TextStyle(
@@ -36,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
+                    builder: (context) => const HomeScreen(),
                   ));
                 },
                 leading: const Icon(Icons.dashboard_outlined),
@@ -50,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => UploadbillScreen(),
+                    builder: (context) => const UploadbillScreen(),
                   ));
                 },
                 leading: const Icon(Icons.note),
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MybillsScreen(),
+                    builder: (context) => const MybillsScreen(),
                   ));
                 },
                 leading: const Icon(Icons.safety_check),
@@ -164,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                 height: 25,
               ),
               Container(
-                padding: EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15)),

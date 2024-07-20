@@ -19,8 +19,15 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
 
   File? _selectedImage;
   String? imageStatus;
+  final items = [
+    'Sale',
+    'Purchase',
+  ];
+  String selectedValue = 'Sale';
+
   @override
   Widget build(BuildContext context) {
+    int? intervalValue = 5;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
@@ -48,17 +55,17 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
       ),
       body: Column(
         children: [
-          TextField(
+          const TextField(
             style: TextStyle(fontSize: 22),
             decoration: InputDecoration(
                 hintText: "Bill Name", contentPadding: EdgeInsets.all(20)),
           ),
           GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 15.0),
               child: DashedBorderContainer(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                       horizontal: 50.0, vertical: 15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,22 +85,22 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
 
                           _pickImageFromGallary();
                         },
-                        leading: Icon(Icons.photo),
-                        title: Text('Select from Gallery'),
+                        leading: const Icon(Icons.photo),
+                        title: const Text('Select from Gallery'),
                       ),
                       ListTile(
                         onTap: () {
                           Navigator.pop(context);
                           _pickImageFromCamera();
                         },
-                        leading: Icon(Icons.camera),
-                        title: Text('Select from Camera'),
+                        leading: const Icon(Icons.camera),
+                        title: const Text('Select from Camera'),
                       ),
                     ],
                   );
                 }),
           ),
-          Divider(),
+          const Divider(),
           Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -101,37 +108,68 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.date_range,
                       size: 28,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Jul 17, 2024",
-                      style: TextStyle(
-                        fontSize: 16,
+                    InkWell(
+                      onTap: () {},
+                      child: const Text(
+                        "Jul 17, 2024",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.category,
                       size: 28,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Bill Type",
-                      style: TextStyle(
-                        fontSize: 16,
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+
+                      // dropdown below..
+                      child: DropdownButton<String>(
+                        hint: const Text("Bill Type"),
+
+                        value: selectedValue,
+                        onChanged: (newValue) {
+                          print(newValue);
+                          if (newValue != null) {
+                            setState(() {
+                              selectedValue = newValue;
+                            });
+                          }
+                        },
+                        items: items
+                            .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    ))
+                            .toList(),
+
+                        // add extra sugar..
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 42,
+                        underline: const SizedBox(),
                       ),
                     ),
                   ],
@@ -139,13 +177,13 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               ],
             ),
           ),
-          Divider(),
+          const Divider(),
 
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
+          const Padding(
+            padding: EdgeInsets.all(25.0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: "Add notes",
@@ -160,7 +198,7 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           //   ),
           // )
 
-          SizedBox(
+          const SizedBox(
             height: 25,
             child: Text("Selected Image"),
           ),
@@ -168,7 +206,7 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             width: 200,
             height: 200,
             child:
-                _selectedImage != null ? Image.file(_selectedImage!) : Text(""),
+                _selectedImage != null ? Image.file(_selectedImage!) : const Text(""),
           )
         ],
       ),

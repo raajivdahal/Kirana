@@ -15,7 +15,7 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [
-            UserAccountsDrawerHeader(
+            const UserAccountsDrawerHeader(
               accountName: Text(
                 "John Doe",
                 style: TextStyle(
@@ -35,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DashBoard(),
+                  builder: (context) => const DashBoard(),
                 ));
               },
               leading: const Icon(Icons.dashboard_outlined),
@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.pop(context);
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => UploadbillScreen(),
+                  builder: (context) => const UploadbillScreen(),
                 ));
               },
               leading: const Icon(Icons.note),
@@ -67,7 +67,7 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.pop(context);
 
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MybillsScreen(),
+                  builder: (context) => const MybillsScreen(),
                 ));
               },
               leading: const Icon(Icons.safety_check),

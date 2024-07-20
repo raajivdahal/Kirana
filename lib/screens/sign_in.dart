@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:kirana/component/custom_button.dart';
 import 'package:kirana/screens/home_screen.dart';
@@ -55,7 +54,7 @@ class SignInScreen extends StatelessWidget {
                       //   ],
                       // ),
 
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 0),
                         child: TextField(
                           decoration: InputDecoration(
@@ -72,10 +71,10 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 0),
                         child: TextField(
                           decoration: InputDecoration(
@@ -92,10 +91,10 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 0.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -107,29 +106,29 @@ class SignInScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       GestureDetector(
-                        child: CustomButton(
+                        child: const CustomButton(
                           text: "Login",
                         ),
                         onTap: () => Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DashBoard(),
+                            builder: (context) => const DashBoard(),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 60,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Didn't have account? "),
+                          const Text("Didn't have account? "),
                           GestureDetector(
-                            child: Text(
+                            child: const Text(
                               "Sign up",
                               style: TextStyle(
                                 color: Colors.blue,
@@ -137,7 +136,7 @@ class SignInScreen extends StatelessWidget {
                             ),
                             onTap: () =>
                                 Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpScreen(),
+                              builder: (context) => const SignUpScreen(),
                             )),
                           )
                         ],
