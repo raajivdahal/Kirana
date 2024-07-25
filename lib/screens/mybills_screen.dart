@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kirana/util/randomNumber.dart';
 
+import '../util/formDate.dart';
+
 class MybillsScreen extends StatefulWidget {
   const MybillsScreen({super.key});
 
@@ -13,6 +15,7 @@ class MybillsScreen extends StatefulWidget {
 
 class _MybillsScreenState extends State<MybillsScreen> {
   List items = [];
+  List filteredData = [];
   DateTime selectedDate = DateTime.now();
   DateTime? startDate, endDate;
   final billType = [
@@ -84,7 +87,7 @@ class _MybillsScreenState extends State<MybillsScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   OutlinedButton(
@@ -175,16 +178,20 @@ class _MybillsScreenState extends State<MybillsScreen> {
 
                   OutlinedButton(
                     onPressed: () async {
-                      final DateTime? date = await showDatePicker(
+                      final DateTime? selected = await showDatePicker(
                           context: context,
                           initialDate: selectedDate,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2025));
+                      print(selected);
 
-                      if (date != null && date != selectedDate) {
+                      if (selected != null && selected != selectedDate) {
                         setState(() {
-                          startDate = date;
+                          // final formatedDate = getFormatedDate(selected);
+                          startDate = selected;
                         });
+
+                        print(startDate?.year);
                       }
                     },
                     child: const Text(
@@ -216,8 +223,8 @@ class _MybillsScreenState extends State<MybillsScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () async {
-                      await readJson();
+                    onTap: () {
+                      // await readJson();
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -307,8 +314,16 @@ class _MybillsScreenState extends State<MybillsScreen> {
     final String response = await rootBundle.loadString('assets/bills.json');
     final data = await json.decode(response);
     setState(() {
-      items = data["bill_receipt"];
+      filteredData = items = data["bill_receipt"];
       // print(items);
     });
+  }
+
+  void _filterBillType(value) {
+    setState(() {
+      final filteredDate =
+          items.where((item) => item["billType"] == "sale").toList();
+    });
+    // print(filteredData);
   }
 }

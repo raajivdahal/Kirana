@@ -53,8 +53,7 @@ class _DashBoardState extends State<DashBoard> {
               child: GestureDetector(
                 child: const Icon(Icons.settings),
                 onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => const SettingScreen()),
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
                 ),
               ),
             ),

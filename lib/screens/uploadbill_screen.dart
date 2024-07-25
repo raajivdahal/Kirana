@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kirana/component/dashed_container.dart';
+import 'package:kirana/helper/alert_dialogs.dart';
 import 'package:kirana/screens/home_screen.dart';
 
 class UploadbillScreen extends StatefulWidget {
@@ -16,6 +19,7 @@ class UploadbillScreen extends StatefulWidget {
 
 class _UploadbillScreenState extends State<UploadbillScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  String cloudUrl = "https://api.cloudinary.com/v1_1/dafxlje45/upload";
 
   File? _selectedImage;
   String? imageStatus;
@@ -24,6 +28,62 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
     'Purchase',
   ];
   String selectedValue = 'Sale';
+
+  Future<void> uploadFile(String url, File file) async {
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.files
+        .add(await http.MultipartFile.fromPath('file', _selectedImage!.path));
+
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      const AlertDialog(
+        title: Text("Success"),
+        content: Text("Save successfully"),
+      );
+    } else {
+      // Handle error
+
+      const AlertDialog(
+        title: Text("Failed"),
+        content: Text("Failed to upload image!"),
+      );
+    }
+  }
+
+  Future<void> _uploadImageToServer() async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://10.0.2.2:9191/upload'),
+    );
+    request.files.add(await http.MultipartFile.fromPath(
+      'image',
+      _selectedImage!.path,
+    ));
+    request.headers.addAll({
+      'Content-Type': "application/json",
+    });
+    // request.fields['upload_preset'] = 'siva0idq';
+    var response = await request.send();
+    debugPrint('Reponse: ');
+
+    if (response.statusCode == 200) {
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      final jsonMap = jsonDecode(responseString);
+
+      print(jsonMap);
+    } else {
+      // Handle error
+      print('error uploading image to the server');
+    }
+
+    // var request = await http.get(Uri.parse("http://10.0.2.2:3000/data"));
+
+    // if (request.statusCode == 200) {
+    //   var json = jsonDecode(request.body);
+    //   print(json);
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +104,15 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           ),
         ),
         actions: [
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.green, borderRadius: BorderRadius.circular(5)),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-            margin: const EdgeInsets.only(right: 25),
-            child: const Text("Save"),
+          GestureDetector(
+            onTap: _uploadImageToServer,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.green, borderRadius: BorderRadius.circular(5)),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+              margin: const EdgeInsets.only(right: 25),
+              child: const Text("Save"),
+            ),
           )
         ],
       ),
@@ -106,18 +169,18 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.date_range,
                           size: 28,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 15,
                         ),
-                        const Text(
+                        Text(
                           "Jul 17, 2024",
                           style: TextStyle(
                             fontSize: 16,
