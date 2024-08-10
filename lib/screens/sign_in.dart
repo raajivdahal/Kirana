@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:kirana/component/custom_button.dart';
@@ -6,11 +9,71 @@ import 'package:kirana/screens/reset_screen.dart';
 import 'package:kirana/screens/signup_screen.dart';
 import 'package:kirana/screens/verifyotp_screen.dart';
 import 'package:kirana/util/form_validate.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:kirana/services//constant.dart';
 
 final _signInformKey = GlobalKey<FormState>();
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializedSharedPref();
+  }
+
+  void initializedSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  void loginUser() async {
+    print("Login User");
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      var reqBody = {
+        "email": emailController.text,
+        "password": passwordController.text
+      };
+
+      var response = await http.post(
+        Uri.parse("http://$localIP:9191/login"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody),
+      );
+
+      var json = jsonDecode(response.body);
+
+      var token;
+      if ((json["status"])) {
+        token = json["accessToken"];
+
+        prefs.setString("accessToken", token);
+        
+        print(prefs.getString("accessToken"));
+      }
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DashBoard(
+
+
+                  )));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +127,7 @@ class SignInScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 0),
                           child: TextFormField(
+                            controller: emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.email),
@@ -77,10 +141,10 @@ class SignInScreen extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                             ),
-                            validator: (value) =>
-                                !validateEmail(value!) ? "Invalid Email" : null,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            // validator: (value) =>
+                            //     !validateEmail(value!) ? "Invalid Email" : null,
+                            // autovalidateMode:
+                            //     AutovalidateMode.onUserInteraction,
                           ),
                         ),
                         const SizedBox(
@@ -92,6 +156,8 @@ class SignInScreen extends StatelessWidget {
                             // validator: (value) => value!.length < 3
                             //     ? "Should be greater than 3"
                             //     : null,
+
+                            controller: passwordController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock),
                               focusedBorder: OutlineInputBorder(
@@ -134,16 +200,18 @@ class SignInScreen extends StatelessWidget {
                               text: "Login",
                             ),
                             onTap: () => {
-                                  if (_signInformKey.currentState!.validate())
-                                    {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const OTPScreen(),
-                                        ),
-                                      ),
-                                    }
+                                  loginUser()
+
+                                  // if (_signInformKey.currentState!.validate())
+                                  //   {
+                                  //     Navigator.pushReplacement(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             const OTPScreen(),
+                                  //       ),
+                                  //     ),
+                                  //   }
                                 }),
                         const SizedBox(
                           height: 60,

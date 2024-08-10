@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kirana/component/dashed_container.dart';
-import 'package:kirana/helper/alert_dialogs.dart';
+// import 'package:kirana/helper/alert_dialogs.dart';
 import 'package:kirana/screens/home_screen.dart';
+import 'package:kirana/services/http_service.dart';
 
 class UploadbillScreen extends StatefulWidget {
   const UploadbillScreen({super.key});
@@ -18,8 +19,12 @@ class UploadbillScreen extends StatefulWidget {
 }
 
 class _UploadbillScreenState extends State<UploadbillScreen> {
+  List<XFile>? imageFileList = [];
   var scaffoldKey = GlobalKey<ScaffoldState>();
   String cloudUrl = "https://api.cloudinary.com/v1_1/dafxlje45/upload";
+  ImageService imageService = ImageService();
+
+  DateTime createdDate = DateTime.now();
 
   File? _selectedImage;
   String? imageStatus;
@@ -50,41 +55,6 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
     }
   }
 
-  Future<void> _uploadImageToServer() async {
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse('http://10.0.2.2:9191/upload'),
-    );
-    request.files.add(await http.MultipartFile.fromPath(
-      'image',
-      _selectedImage!.path,
-    ));
-    request.headers.addAll({
-      'Content-Type': "application/json",
-    });
-    // request.fields['upload_preset'] = 'siva0idq';
-    var response = await request.send();
-    debugPrint('Reponse: ');
-
-    if (response.statusCode == 200) {
-      final responseData = await response.stream.toBytes();
-      final responseString = String.fromCharCodes(responseData);
-      final jsonMap = jsonDecode(responseString);
-
-      print(jsonMap);
-    } else {
-      // Handle error
-      print('error uploading image to the server');
-    }
-
-    // var request = await http.get(Uri.parse("http://10.0.2.2:3000/data"));
-
-    // if (request.statusCode == 200) {
-    //   var json = jsonDecode(request.body);
-    //   print(json);
-    // }
-  }
-
   @override
   Widget build(BuildContext context) {
     int? intervalValue = 5;
@@ -104,15 +74,17 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: _uploadImageToServer,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.green, borderRadius: BorderRadius.circular(5)),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              margin: const EdgeInsets.only(right: 25),
-              child: const Text("Save"),
-            ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.green, borderRadius: BorderRadius.circular(5)),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            margin: const EdgeInsets.only(right: 25),
+            child: InkWell(
+                onTap: () {
+
+                  imageService.uploadImageToServer(_selectedImage);
+                },
+                child: const Text("Save")),
           )
         ],
       ),
@@ -144,8 +116,9 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
                       ListTile(
                         onTap: () {
                           Navigator.pop(context);
+                          selectMultipleImages();
 
-                          _pickImageFromGallary();
+                          // _pickImageFromGallary();
                         },
                         leading: const Icon(Icons.photo),
                         title: const Text('Select from Gallery'),
@@ -169,15 +142,15 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.date_range,
                           size: 28,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         Text(
@@ -195,6 +168,12 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2018),
                         lastDate: DateTime(2025));
+
+                    if (date != null) {
+                      setState(() {
+                        createdDate = date;
+                      });
+                    }
                   },
                 ),
                 // const SizedBox(
@@ -224,10 +203,10 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
 
                           value: selectedValue,
                           onChanged: (newValue) {
-                            print(newValue);
                             if (newValue != null) {
                               setState(() {
                                 selectedValue = newValue;
+                                print(selectedValue);
                               });
                             }
                           },
@@ -276,13 +255,28 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             height: 25,
             child: Text("Selected Image"),
           ),
-          SizedBox(
-            width: 200,
-            height: 200,
-            child: _selectedImage != null
-                ? Image.file(_selectedImage!)
-                : const Text(""),
+          // SizedBox(
+          //   width: 200,
+          //   height: 200,
+          //   child: _selectedImage != null
+          //       ? Image.file(_selectedImage!)
+          //       : const Text(""),
+          // )
+          
+          Expanded(child: Padding(
+
+          padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+                itemCount: imageFileList!.length,
+                gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return Image.file(File(imageFileList![index].path),
+                    fit: BoxFit.cover,);
+                }),
           )
+          ),
         ],
       ),
     );
@@ -312,4 +306,20 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
 
     print(camImage);
   }
+
+  void selectMultipleImages() async{
+    final ImagePicker imagePicker = ImagePicker();
+
+    final List<XFile>? selectedImages = await
+    imagePicker.pickMultiImage();
+
+    print("Image List Length:" + imageFileList!.length.toString());
+    setState((){
+      if (selectedImages!.isNotEmpty) {
+        imageFileList!.addAll(selectedImages);
+      }
+    });
+  }
 }
+
+

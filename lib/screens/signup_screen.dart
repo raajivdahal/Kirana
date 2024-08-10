@@ -190,16 +190,16 @@ class SignUpScreen extends StatelessWidget {
                                   text: "Done",
                                 ),
                                 onTap: () => {
-                                      if (_signUpFormKey.currentState!
-                                          .validate())
-                                        {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const DashBoard(),
-                                              )),
-                                        }
+                                      // if (_signUpFormKey.currentState!
+                                      //     .validate())
+                                      //   {
+                                      //     Navigator.pushReplacement(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //           builder: (context) =>
+                                      //               const DashBoard(),
+                                      //         )),
+                                      //   }
                                     }),
                             const SizedBox(
                               height: 25,

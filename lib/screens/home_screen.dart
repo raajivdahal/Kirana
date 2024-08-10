@@ -4,18 +4,59 @@ import 'package:kirana/component/latest_card.dart';
 import 'package:kirana/screens/mybills_screen.dart';
 import 'package:kirana/screens/setting.dart';
 import 'package:kirana/screens/uploadbill_screen.dart';
+import 'package:quick_actions/quick_actions.dart';
+
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+// final String accessToken;
+  const DashBoard({super.key  });
 
   @override
   State<DashBoard> createState() => _DashBoardState();
 }
 
 class _DashBoardState extends State<DashBoard> {
+  late String? userEmail;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  String shortcut = 'no action set';
+  QuickActions quickActions = QuickActions();
 
   @override
+  @override
+  void initState() {
+    super.initState();
+
+    // Map<String, dynamic> jwtDecodedToken =
+    //     JwtDecoder.decode(widget.accessToken);
+
+    userEmail= null;
+
+    quickActions.initialize((String shortcutType) {
+      if (shortcutType == "upload") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const UploadbillScreen()));
+        return;
+      } else {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MybillsScreen()));
+        return;
+      }
+    });
+    quickActions.setShortcutItems(
+      <ShortcutItem>[
+        const ShortcutItem(type: "upload", localizedTitle: "Upload Bill"),
+        const ShortcutItem(type: "query", localizedTitle: "My Bills"),
+      ],
+    );
+  }
+
+  Future<String?> getAccessToke () async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("accessToken");
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -64,14 +105,14 @@ class _DashBoardState extends State<DashBoard> {
         padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hello User,",
+                      userEmail ?? "Hello User,",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
