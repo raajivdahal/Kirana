@@ -81,6 +81,13 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             margin: const EdgeInsets.only(right: 25),
             child: InkWell(
                 onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      });
 
                   imageService.uploadImageToServer(_selectedImage);
                 },
@@ -262,24 +269,55 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           //       ? Image.file(_selectedImage!)
           //       : const Text(""),
           // )
-          
-          Expanded(child: Padding(
 
-          padding: const EdgeInsets.all(8.0),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
                 itemCount: imageFileList!.length,
-                gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
-                  return Image.file(File(imageFileList![index].path),
-                    fit: BoxFit.cover,);
+                  return Stack(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: Image.file(
+                          File(imageFileList![index].path),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        // top: 5,
+                        right: 5,
+                        child: GestureDetector(
+                          onTap: () => _removeImage(index),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(0.7),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
                 }),
-          )
-          ),
+          )),
         ],
       ),
     );
+  }
+
+  _removeImage(int index) {
+    setState(() {
+      imageFileList?.removeAt(index);
+    });
   }
 
   Future _pickImageFromGallary() async {
@@ -307,19 +345,16 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
     print(camImage);
   }
 
-  void selectMultipleImages() async{
+  void selectMultipleImages() async {
     final ImagePicker imagePicker = ImagePicker();
 
-    final List<XFile>? selectedImages = await
-    imagePicker.pickMultiImage();
+    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
 
     print("Image List Length:" + imageFileList!.length.toString());
-    setState((){
+    setState(() {
       if (selectedImages!.isNotEmpty) {
         imageFileList!.addAll(selectedImages);
       }
     });
   }
 }
-
-

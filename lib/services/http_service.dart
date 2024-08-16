@@ -22,7 +22,7 @@ class ImageService {
     return responseString;
   }
 
-  Future<void> uploadImageToServer(File? selectedImage) async {
+  Future<bool> uploadImageToServer(File? selectedImage) async {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse('http://$localIP:9191/upload'),
@@ -43,9 +43,12 @@ class ImageService {
 
     if (response.statusCode == 200) {
       print("done");
+      return true;
     } else {
       // Handle error
       print('error uploading image to the server');
+
+      return true;
     }
 
     // var request = await http.get(Uri.parse("http://10.0.2.2:3000/data"));
