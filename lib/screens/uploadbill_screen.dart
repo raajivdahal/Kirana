@@ -239,18 +239,17 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           ),
           const Divider(),
 
-          const SizedBox(
-            height: 10,
-          ),
           const Padding(
             padding: EdgeInsets.all(25.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Add notes",
+                hintText: "Remarks",
                 prefixIcon: Icon(Icons.create),
+                // border: OutlineInputBorder(),
               ),
             ),
           ),
+
           // TextField(
           //   maxLines: 4,
           //   decoration: InputDecoration(
@@ -258,10 +257,32 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
           //   ),
           // )
 
-          const SizedBox(
-            height: 25,
-            child: Text("Selected Image"),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                imageFileList?.clear();
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: imageFileList!.isNotEmpty
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Total Images:  ${imageFileList!.length}"),
+
+                        const Text("Clear")
+                        // : const Text(""),
+                      ],
+                    )
+                  : null,
+            ),
           ),
+
+          // const SizedBox(
+          //   height: 25,
+          //   child: Text("Selected Image"),
+          // ),
           // SizedBox(
           //   width: 200,
           //   height: 200,
@@ -275,7 +296,7 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
                 itemCount: imageFileList!.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
                 itemBuilder: (BuildContext context, int index) {
                   return Stack(
@@ -297,7 +318,7 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
                               color: Colors.red.withOpacity(0.7),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.close,
                               color: Colors.white,
                               size: 20,
