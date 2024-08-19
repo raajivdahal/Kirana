@@ -62,16 +62,11 @@ class _SignInScreenState extends State<SignInScreen> {
         token = json["accessToken"];
 
         prefs.setString("accessToken", token);
-        
+
         print(prefs.getString("accessToken"));
       }
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DashBoard(
-
-
-                  )));
+          context, MaterialPageRoute(builder: (context) => DashBoard()));
     }
   }
 

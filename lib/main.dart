@@ -31,7 +31,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final accessToken;
 
-  const MyApp({super.key,  required this.accessToken});
+  const MyApp({super.key, required this.accessToken});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,12 @@ class MyApp extends StatelessWidget {
       //
       //       )
       //     : SignInScreen(),
+
+      ,
+      // routes: {
+      //   "/": (context) => DashBoard(),
+      //   "/mybills": (context) => MybillsScreen(),
+      // },
     );
   }
 }

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:kirana/services/constant.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class AuthService {
   Future<String> uploadPhotos(List<String> paths) async {
     Uri uri = Uri.parse('http://10.0.0.103:5000/profile/upload-mutiple');
@@ -110,5 +112,11 @@ class AuthService {
     } else {
       print("error registering user");
     }
+  }
+
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("accessToken");
   }
 }

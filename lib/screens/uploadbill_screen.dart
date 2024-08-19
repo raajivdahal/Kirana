@@ -19,6 +19,11 @@ class UploadbillScreen extends StatefulWidget {
 }
 
 class _UploadbillScreenState extends State<UploadbillScreen> {
+  final TextEditingController _billName = TextEditingController();
+  final TextEditingController _remarks = TextEditingController();
+
+  bool _isLoading = false;
+
   List<XFile>? imageFileList = [];
   var scaffoldKey = GlobalKey<ScaffoldState>();
   String cloudUrl = "https://api.cloudinary.com/v1_1/dafxlje45/upload";
@@ -56,6 +61,12 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
   }
 
   @override
+  void dispose() {
+    _billName.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int? intervalValue = 5;
     return Scaffold(
@@ -80,16 +91,28 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             margin: const EdgeInsets.only(right: 25),
             child: InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      });
+                onTap: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  print("${_billName.text} ${_remarks.text}");
+                  _isLoading
+                      ? showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          })
+                      : null;
 
-                  imageService.uploadImageToServer(_selectedImage);
+                  await Future.delayed(Duration(seconds: 2));
+
+                  // await imageService.uploadImageToServer(_selectedImage);
+
+                  setState(() {
+                    _isLoading = false;
+                  });
                 },
                 child: const Text("Save")),
           )
@@ -97,10 +120,13 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
       ),
       body: Column(
         children: [
-          const TextField(
-            style: TextStyle(fontSize: 22),
-            decoration: InputDecoration(
-                hintText: "Bill Name", contentPadding: EdgeInsets.all(20)),
+          TextField(
+            controller: _billName,
+            style: const TextStyle(fontSize: 22),
+            decoration: const InputDecoration(
+              hintText: "Bill Name",
+              contentPadding: EdgeInsets.all(20),
+            ),
           ),
           GestureDetector(
             child: const Padding(
@@ -149,8 +175,8 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         const Icon(
@@ -237,18 +263,21 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
               ],
             ),
           ),
-          const Divider(),
-
-          const Padding(
-            padding: EdgeInsets.all(25.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 25),
             child: TextField(
-              decoration: InputDecoration(
+              maxLines: 1,
+              controller: _remarks,
+              decoration: const InputDecoration(
                 hintText: "Remarks",
+                hintStyle: TextStyle(),
                 prefixIcon: Icon(Icons.create),
-                // border: OutlineInputBorder(),
+                border: OutlineInputBorder(),
               ),
             ),
           ),
+
+          const Divider(),
 
           // TextField(
           //   maxLines: 4,
@@ -356,12 +385,13 @@ class _UploadbillScreenState extends State<UploadbillScreen> {
     if (image == null) return;
 
     setState(() {
-      _selectedImage = File(image.path);
+      // _selectedImage = File(image.path);
+      imageFileList?.add(image);
 
       print(_selectedImage);
     });
     final camImage =
-        await GallerySaver.saveImage(image.path, albumName: "Media");
+        await GallerySaver.saveImage(image.path, albumName: "Kirana");
 
     print(camImage);
   }
