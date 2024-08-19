@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kirana/screens/detail_screen.dart';
 import 'package:kirana/screens/home_screen.dart';
 import 'package:kirana/screens/mybills_screen.dart';
 import 'package:kirana/screens/setting.dart';
@@ -45,10 +46,10 @@ class MyApp extends StatelessWidget {
       //     : SignInScreen(),
 
       ,
-      // routes: {
-      //   "/": (context) => DashBoard(),
-      //   "/mybills": (context) => MybillsScreen(),
-      // },
+      routes: {
+        // "/": (context) => DashBoard(),
+        "/mybills": (context) => MybillsScreen(),
+      },
     );
   }
 }

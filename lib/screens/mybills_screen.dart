@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kirana/screens/detail_screen.dart';
 import 'package:kirana/util/randomNumber.dart';
 
 import '../util/formDate.dart';
@@ -279,6 +280,15 @@ class _MybillsScreenState extends State<MybillsScreen> {
 
                 return ListTile(
                   // tileColor: Colors.grey,
+
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return DetailScreen(
+                        billNum: billNum,
+                      );
+                    }));
+                  },
                   leading: Text(
                     billNum,
                     style: const TextStyle(fontSize: 16),
